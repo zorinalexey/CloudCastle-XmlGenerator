@@ -4,8 +4,10 @@ declare(strict_types = 1);
 
 namespace CloudCastle\XmlGenerator;
 
+Use CloudCastle\FileSystem\File;
+
 /**
- * Класс XmlResponse
+ * Класс Xml
  * @version 0.0.1
  * @package CloudCastle\XmlGenerator
  * @generated Зорин Алексей, please DO NOT EDIT!
@@ -25,6 +27,19 @@ class Xml
      * Путь до сохраненного файла
      * @var string|null
      */
-    public ?string $file = null;
+    public string $file = '';
+
+    /**
+     * Сохранить результат генерации в файл
+     * @param string|null $file Путь к файлу для сохраения
+     * @return self
+     */
+    public function save(?string $file = null): self
+    {
+        if (File::create($file, $this->structure)) {
+            $this->file = $this->file;
+        }
+        return $this;
+    }
 
 }

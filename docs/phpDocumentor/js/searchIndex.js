@@ -53,8 +53,13 @@ Search.appendIndex(
         },                {
             "fqsen": "\\CloudCastle\\XmlGenerator\\Xml",
             "name": "Xml",
-            "summary": "\u041A\u043B\u0430\u0441\u0441\u0020XmlResponse",
+            "summary": "\u041A\u043B\u0430\u0441\u0441\u0020Xml",
             "url": "classes/CloudCastle-XmlGenerator-Xml.html"
+        },                {
+            "fqsen": "\\CloudCastle\\XmlGenerator\\Xml\u003A\u003Asave\u0028\u0029",
+            "name": "save",
+            "summary": "\u0421\u043E\u0445\u0440\u0430\u043D\u0438\u0442\u044C\u0020\u0440\u0435\u0437\u0443\u043B\u044C\u0442\u0430\u0442\u0020\u0433\u0435\u043D\u0435\u0440\u0430\u0446\u0438\u0438\u0020\u0432\u0020\u0444\u0430\u0439\u043B",
+            "url": "classes/CloudCastle-XmlGenerator-Xml.html#method_save"
         },                {
             "fqsen": "\\CloudCastle\\XmlGenerator\\Xml\u003A\u003A\u0024structure",
             "name": "structure",

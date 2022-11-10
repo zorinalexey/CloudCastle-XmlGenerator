@@ -61,6 +61,8 @@ class XmlGenerator
         $this->file = $this->config->getFile();
         if (Dir::create(dirname($this->file))) {
             $this->obj->openUri($this->file);
+        } else {
+            $this->setMemoryGenerator();
         }
     }
 
@@ -94,7 +96,6 @@ class XmlGenerator
      */
     public function startElement(string $name, array $attribites = [], ?string $comment = null): self
     {
-
         if ($comment) {
             $this->obj->startComment();
             $this->obj->text($comment);
@@ -127,25 +128,26 @@ class XmlGenerator
     {
         $this->obj->endDocument();
         $response = new Xml();
+        $response->file = $this->file;
         if ($this->config->getType() === 'filesystem') {
             $response->structure = File::read($this->file);
-            $response->file = $this->file;
         } else {
             $response->structure = $this->obj->outputMemory($this->config->getFlush());
         }
+        return $response;
     }
 
     /**
      * Добавить атрибут к элементу
      * @param string $name Наименование атрибута
-     * @param string $text Значение атрибута
+     * @param string|int $text Значение атрибута
      * @return self
      */
-    public function addAttribute(string $name, string $text): self
+    public function addAttribute(string $name, $text): self
     {
         if ($name AND $text) {
             $this->obj->startAttribute($name);
-            $this->obj->text($text);
+            $this->obj->text((string)$text);
             $this->obj->endAttribute();
         }
         return $this;
@@ -154,16 +156,16 @@ class XmlGenerator
     /**
      * Добавить элемент с содержанием
      * @param string $name Наименование элемента
-     * @param string $content Содержание элемента
+     * @param string|int|null|bool $content Содержание элемента
      * @param array $attribites Атрибуты элемента
      * @param string|null $comment Коментарий элемента
      * @return self
      */
-    public function addElement(string $name, ?string $content = null, array $attribites = [], ?string $comment = null): self
+    public function addElement(string $name, $content = false, array $attribites = [], ?string $comment = null): self
     {
         if ($name AND $content) {
             $this->startElement($name, $attribites, $comment);
-            $this->obj->text($content);
+            $this->obj->text((string)$content);
             $this->closeElement();
         }
         return $this;

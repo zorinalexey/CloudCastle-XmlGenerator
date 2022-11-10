@@ -38,9 +38,11 @@ class Config
      * @param string $file Путь к файлу для сохранения
      * @return void
      */
-    public function setFile(string $file): void
+    public function setFile(?string $file = null): void
     {
-        $this->file = $file;
+        if ($file) {
+            $this->file = $file;
+        }
     }
 
     /**
@@ -59,8 +61,10 @@ class Config
      */
     public function setType(string $type = 'filesystem'): void
     {
-        if (mb_strtolower($type) !== 'filesystem') {
+        if (mb_strtolower($type) != 'filesystem') {
             $this->type = 'memory';
+        } else {
+            $this->type = 'filesystem';
         }
     }
 
