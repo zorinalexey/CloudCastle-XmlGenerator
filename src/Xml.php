@@ -27,7 +27,7 @@ class Xml
      * Путь до сохраненного файла
      * @var string|null
      */
-    public string $file = '';
+    public $file = '';
 
     /**
      * Сохранить результат генерации в файл
@@ -37,7 +37,7 @@ class Xml
     public function save(?string $file = null): self
     {
         if (File::create($file, $this->structure)) {
-            $this->file = $this->file;
+            $this->file = $file;
         }
         return $this;
     }

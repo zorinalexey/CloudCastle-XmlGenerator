@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <phpunit colors="true">
     <testsuites>
-        <testsuite name="XmlGenerator">
+        <testsuite name="CloudCastle\XmlGenerator">
             <directory>vendor/cloud-castle/file-system/tests/Unit</directory>
             <directory>tests/</directory>
         </testsuite>

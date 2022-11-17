@@ -21,24 +21,28 @@ class XmlGenerator
 
     /**
      * Объект генерации xml
+     * 
      * @var XMLWriter|null
      */
     private ?XMLWriter $obj = null;
 
     /**
      * Путь к файлу для сохранения
+     * 
      * @var string|null
      */
     private ?string $file = null;
 
     /**
      * Конфигурация генратора
+     * 
      * @var Config|null
      */
     private ?Config $config;
 
     /**
      * Конструктор класса
+     * 
      * @param Config $config Параметры конфигурации
      */
     public function __construct(Config $config)
@@ -54,6 +58,7 @@ class XmlGenerator
 
     /**
      * Создать файл на диске
+     * 
      * @return void
      */
     private function setFileSystemGenerator(): void
@@ -68,6 +73,7 @@ class XmlGenerator
 
     /**
      * Создать файл в память
+     * 
      * @return void
      */
     private function setMemoryGenerator(): void
@@ -77,6 +83,7 @@ class XmlGenerator
 
     /**
      * Запустить генерацию документа
+     * 
      * @param string $version Версия документа
      * @param string $encoding Кодировка документа
      * @return self
@@ -89,19 +96,20 @@ class XmlGenerator
 
     /**
      * Открыть элемент схемы
+     * 
      * @param string $name Наименование элемента
      * @param array $attribites Атрибуты элемента
      * @param string|null $comment коментарий к элементу
      * @return self
      */
-    public function startElement(string $name, array $attribites = [], ?string $comment = null): self
+    public function startElement($name, array $attribites = [], $comment = null): self
     {
         if ($comment) {
             $this->obj->startComment();
-            $this->obj->text($comment);
+            $this->text($comment);
             $this->obj->endComment();
         }
-        $this->obj->startElement($name);
+        $this->obj->startElement((string)$name);
         if ($attribites) {
             foreach ($attribites AS $key => $value) {
                 $this->addAttribute($key, $value);
@@ -112,6 +120,7 @@ class XmlGenerator
 
     /**
      * Закрыть элемент схемы
+     * 
      * @return self
      */
     public function closeElement(): self
@@ -122,6 +131,7 @@ class XmlGenerator
 
     /**
      * Получить резултат генерации xml
+     * 
      * @return Xml
      */
     public function get(): Xml
@@ -139,6 +149,7 @@ class XmlGenerator
 
     /**
      * Добавить атрибут к элементу
+     * 
      * @param string $name Наименование атрибута
      * @param string|int $text Значение атрибута
      * @return self
@@ -147,7 +158,7 @@ class XmlGenerator
     {
         if ($name AND $text) {
             $this->obj->startAttribute($name);
-            $this->obj->text((string)$text);
+            $this->text($text);
             $this->obj->endAttribute();
         }
         return $this;
@@ -155,18 +166,33 @@ class XmlGenerator
 
     /**
      * Добавить элемент с содержанием
+     * 
      * @param string $name Наименование элемента
      * @param string|int|null|bool $content Содержание элемента
      * @param array $attribites Атрибуты элемента
      * @param string|null $comment Коментарий элемента
      * @return self
      */
-    public function addElement(string $name, $content = false, array $attribites = [], ?string $comment = null): self
+    public function addElement(string $name, $content = null, array $attribites = [], ?string $comment = null): self
     {
         if ($name AND $content) {
             $this->startElement($name, $attribites, $comment);
-            $this->obj->text((string)$content);
+            $this->text($content);
             $this->closeElement();
+        }
+        return $this;
+    }
+
+    /**
+     * Вставить текстом в элемент
+     * 
+     * @param mixed $text Текст
+     * @return self
+     */
+    public function text($text = null): self
+    {
+        if ($text !== null) {
+            $this->obj->text((string)$text);
         }
         return $this;
     }
