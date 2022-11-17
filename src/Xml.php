@@ -14,23 +14,26 @@ Use CloudCastle\FileSystem\File;
  * @author Зорин Алексей <zorinalexey59292@gmail.com>
  * @copyright 2022 разработчик Зорин Алексей Евгеньевич.
  */
-class Xml
+final class Xml
 {
 
     /**
      * Структура xml файла
+     * 
      * @var string|null
      */
     public ?string $structure = null;
 
     /**
      * Путь до сохраненного файла
+     * 
      * @var string|null
      */
     public $file = '';
 
     /**
      * Сохранить результат генерации в файл
+     * 
      * @param string|null $file Путь к файлу для сохраения
      * @return self
      */

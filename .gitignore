@@ -1,4 +1,5 @@
 /vendor/
+/src/xml-files/
 /cache/
 /nbproject/
 composer.phar

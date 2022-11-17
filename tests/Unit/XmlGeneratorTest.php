@@ -8,6 +8,8 @@ use PHPUnit\Framework\TestCase;
 use CloudCastle\XmlGenerator\Xml;
 use CloudCastle\XmlGenerator\Config;
 use CloudCastle\XmlGenerator\XmlGenerator;
+use CloudCastle\FileSystem\Dir;
+use CloudCastle\FileSystem\File;
 
 /**
  * Класс XmlGeneratorTest
@@ -24,6 +26,7 @@ class XmlGeneratorTest extends TestCase
     {
         $config = new Config();
         $generator = new XmlGenerator($config);
+        $file = $config->getFile();
         $this->assertInstanceOf(XmlGenerator::class, $generator);
         $this->assertInstanceOf(XmlGenerator::class, $generator->startDocument());
         $this->assertInstanceOf(XmlGenerator::class, $generator->startElement('test'));
@@ -33,6 +36,8 @@ class XmlGeneratorTest extends TestCase
         $this->assertInstanceOf(Xml::class, $generator->get());
         $this->assertIsString($generator->get()->structure);
         $this->assertIsString($generator->get()->file);
+        File::delete($file);
+        Dir::delete(dirname($file), true);
     }
 
 }

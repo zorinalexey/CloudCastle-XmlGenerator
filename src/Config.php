@@ -12,29 +12,33 @@ namespace CloudCastle\XmlGenerator;
  * @author Зорин Алексей <zorinalexey59292@gmail.com>
  * @copyright 2022 разработчик Зорин Алексей Евгеньевич.
  */
-class Config
+final class Config
 {
 
     /**
      * Путь файла для сохранения
+     * 
      * @var string|null
      */
     private string $file = __DIR__ . DIRECTORY_SEPARATOR . 'xml-files' . DIRECTORY_SEPARATOR . 'test.xml';
 
     /**
      * Метод создания файла
+     * 
      * @var string
      */
     private string $type = 'filesystem';
 
     /**
      * Освобождать память после выполнения или нет
+     * 
      * @var bool
      */
     private bool $flush = true;
 
     /**
      * Задать путь для сохранения файла
+     * 
      * @param string $file Путь к файлу для сохранения
      * @return void
      */
@@ -47,6 +51,7 @@ class Config
 
     /**
      * Получить путь для заданного файла
+     * 
      * @return string
      */
     public function getFile(): string
@@ -56,6 +61,7 @@ class Config
 
     /**
      * Задать метод создания xml файла
+     * 
      * @param string $type Тип метода создания xml файла. filesystem - Создать файл на диске, иначе создать в память
      * @return void
      */
@@ -70,6 +76,7 @@ class Config
 
     /**
      * Получить метод создания файла
+     * 
      * @return string
      */
     public function getType(): string
@@ -79,6 +86,7 @@ class Config
 
     /**
      * Получить значение использования памяти
+     * 
      * @return bool
      */
     public function getFlush(): bool
@@ -88,6 +96,7 @@ class Config
 
     /**
      * Задать значение использования памяти
+     * 
      * @param bool $flush Освобождать память после генерации или нет? true - освобождать (по умолчанию), false - не освобождать.
      * @return void
      */
