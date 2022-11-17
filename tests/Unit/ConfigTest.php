@@ -2,7 +2,7 @@
 
 declare(strict_types = 1);
 
-namespace Unit\CloudCastle\Tests\XmlGenerator;
+namespace CloudCastle\XmlGenerator\Tests\Unit;
 
 use PHPUnit\Framework\TestCase;
 use CloudCastle\XmlGenerator\Config;

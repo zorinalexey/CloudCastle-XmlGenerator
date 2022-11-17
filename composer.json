@@ -10,8 +10,7 @@
     },
     "autoload-dev": {
         "psr-4": {
-            "Unit\\CloudCastle\\Tests\\XmlGenerator\\": "tests/Unit",
-            "Unit\\CloudCastle\\Tests\\FileSystem\\": "vendor/cloud-castle/tests/Unit"
+            "CloudCastle\\XmlGenerator\\Tests\\Unit\\": "tests/Unit"
         }
     },
     "authors": [
