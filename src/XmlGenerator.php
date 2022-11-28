@@ -16,33 +16,29 @@ use CloudCastle\FileSystem\File;
  * @author Зорин Алексей <zorinalexey59292@gmail.com>
  * @copyright 2022 разработчик Зорин Алексей Евгеньевич.
  */
-final class XmlGenerator
+class XmlGenerator
 {
 
     /**
      * Объект генерации xml
-     * 
      * @var XMLWriter|null
      */
     private ?XMLWriter $obj = null;
 
     /**
      * Путь к файлу для сохранения
-     * 
      * @var string|null
      */
     private ?string $file = null;
 
     /**
      * Конфигурация генратора
-     * 
      * @var Config|null
      */
     private ?Config $config;
 
     /**
      * Конструктор класса
-     * 
      * @param Config $config Параметры конфигурации
      */
     public function __construct(Config $config)
@@ -58,7 +54,6 @@ final class XmlGenerator
 
     /**
      * Создать файл на диске
-     * 
      * @return void
      */
     private function setFileSystemGenerator(): void
@@ -73,7 +68,6 @@ final class XmlGenerator
 
     /**
      * Создать файл в память
-     * 
      * @return void
      */
     private function setMemoryGenerator(): void
@@ -83,7 +77,6 @@ final class XmlGenerator
 
     /**
      * Запустить генерацию документа
-     * 
      * @param string $version Версия документа
      * @param string $encoding Кодировка документа
      * @return self
@@ -96,20 +89,19 @@ final class XmlGenerator
 
     /**
      * Открыть элемент схемы
-     * 
      * @param string $name Наименование элемента
      * @param array $attribites Атрибуты элемента
      * @param string|null $comment коментарий к элементу
      * @return self
      */
-    public function startElement($name, array $attribites = [], $comment = null): self
+    public function startElement(string $name, array $attribites = [], ?string $comment = null): self
     {
         if ($comment) {
             $this->obj->startComment();
-            $this->text($comment);
+            $this->obj->text($comment);
             $this->obj->endComment();
         }
-        $this->obj->startElement((string)$name);
+        $this->obj->startElement($name);
         if ($attribites) {
             foreach ($attribites AS $key => $value) {
                 $this->addAttribute($key, $value);
@@ -120,7 +112,6 @@ final class XmlGenerator
 
     /**
      * Закрыть элемент схемы
-     * 
      * @return self
      */
     public function closeElement(): self
@@ -131,7 +122,6 @@ final class XmlGenerator
 
     /**
      * Получить резултат генерации xml
-     * 
      * @return Xml
      */
     public function get(): Xml
@@ -149,7 +139,6 @@ final class XmlGenerator
 
     /**
      * Добавить атрибут к элементу
-     * 
      * @param string $name Наименование атрибута
      * @param string|int $text Значение атрибута
      * @return self
@@ -158,7 +147,7 @@ final class XmlGenerator
     {
         if ($name AND $text) {
             $this->obj->startAttribute($name);
-            $this->text($text);
+            $this->obj->text((string)$text);
             $this->obj->endAttribute();
         }
         return $this;
@@ -166,33 +155,18 @@ final class XmlGenerator
 
     /**
      * Добавить элемент с содержанием
-     * 
      * @param string $name Наименование элемента
      * @param string|int|null|bool $content Содержание элемента
      * @param array $attribites Атрибуты элемента
      * @param string|null $comment Коментарий элемента
      * @return self
      */
-    public function addElement(string $name, $content = null, array $attribites = [], ?string $comment = null): self
+    public function addElement($name, $content, array $attribites = [], $comment = null): self
     {
-        if ($name AND $content) {
+        if ($name AND $content !== null) {
             $this->startElement($name, $attribites, $comment);
-            $this->text($content);
+            $this->obj->text((string)$content);
             $this->closeElement();
-        }
-        return $this;
-    }
-
-    /**
-     * Вставить текстом в элемент
-     * 
-     * @param mixed $text Текст
-     * @return self
-     */
-    public function text($text = null): self
-    {
-        if ($text !== null) {
-            $this->obj->text((string)$text);
         }
         return $this;
     }
