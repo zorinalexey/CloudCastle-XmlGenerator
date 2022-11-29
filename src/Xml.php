@@ -37,7 +37,7 @@ class Xml
     public function save(?string $file = null): self
     {
         if ($infoFile = File::create($file, $this->structure)) {
-            $this->file = $infoFile->realPath;
+            $this->file = File::info($infoFile->realPath);
         }
         return $this;
     }
